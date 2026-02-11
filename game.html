@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Game ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="page-manager.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink: #FF6B9D;
+            --purple: #C44569;
+            --yellow: #FFD93D;
+            --blue: #6BCF7F;
+            --light-pink: #FFE5EC;
+            --cream: #FFF5E4;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, var(--light-pink) 0%, #E8F5E9 50%, var(--cream) 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 3.5rem;
+            color: var(--purple);
+            text-align: center;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0px var(--yellow);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--pink);
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        .game-container {
+            background: white;
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.2);
+            border: 3px solid var(--yellow);
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--cream);
+            border-radius: 20px;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        .score-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .score-value {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2rem;
+            color: var(--purple);
+            font-weight: 700;
+        }
+
+        .game-info {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(196, 69, 105, 0.1));
+            border-radius: 15px;
+        }
+
+        .game-info h3 {
+            font-family: 'Fredoka', sans-serif;
+            color: var(--purple);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-info p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+            min-height: 400px;
+        }
+
+        .card {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
+        }
+
+        .card:hover:not(.matched) {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 107, 157, 0.3);
+        }
+
+        .card.flipped {
+            background: white;
+            border: 3px solid var(--yellow);
+        }
+
+        .card.matched {
+            background: var(--blue);
+            transform: scale(0.95);
+            opacity: 0.7;
+            cursor: default;
+            animation: matchPulse 0.5s ease-out;
+        }
+
+        @keyframes matchPulse {
+            0%, 100% { transform: scale(0.95); }
+            50% { transform: scale(1.1); }
+        }
+
+        .card-back {
+            color: white;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-front {
+            display: none;
+        }
+
+        .card.flipped .card-back {
+            display: none;
+        }
+
+        .card.flipped .card-front {
+            display: block;
+        }
+
+        .start-screen, .win-screen {
+            text-align: center;
+        }
+
+        .start-screen h2, .win-screen h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5rem;
+            color: var(--purple);
+            margin-bottom: 2rem;
+        }
+
+        .start-screen p, .win-screen p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 25px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--pink);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.3);
+        }
+
+        .btn:hover {
+            background: var(--purple);
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.5);
+        }
+
+        .win-emoji {
+            font-size: 5rem;
+            margin: 2rem 0;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--purple);
+            font-weight: 600;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .game-board {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 0.5rem;
+            }
+            .card {
+                font-size: 2rem;
+            }
+            .card-back {
+                font-size: 1.8rem;
+            }
+            .game-container {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Love Matching Game 💕</h1>
+        <p class="subtitle">Match the hearts to unlock your surprise!</p>
+
+        <div class="game-container">
+            <!-- Start Screen -->
+            <div class="start-screen" id="startScreen">
+                <h2>Ready to Play? 💖</h2>
+                <p>
+                    Find and match all the pairs of hearts! Click on cards to flip them over and find matching pairs.
+                    Score 5 points to unlock the next surprise!
+                </p>
+                <p style="font-size: 1.1rem; color: #888; margin-top: 1rem;">
+                    🎯 Goal: Match all 8 pairs of hearts<br>
+                    💝 Each match = 1 point<br>
+                    ⭐ You need 5 points to continue
+                </p>
+                <button class="btn" onclick="startGame()">Start Game! 🎮</button>
+            </div>
+
+            <!-- Game Screen -->
+            <div id="gameScreen" class="hidden">
+                <div class="score-board">
+                    <div class="score-item">
+                        <div class="score-label">Score</div>
+                        <div class="score-value" id="score">0</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">Matches</div>
+                        <div class="score-value" id="matches">0/8</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-label">Moves</div>
+                        <div class="score-value" id="moves">0</div>
+                    </div>
+                </div>
+
+                <div class="game-info">
+                    <h3>Find the Matching Hearts! 💕</h3>
+                    <p>Click on two cards to see if they match. Find all pairs to win!</p>
+                </div>
+
+                <div class="game-board" id="gameBoard"></div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn" onclick="resetGame()" style="background: var(--blue);">Reset Game 🔄</button>
+                </div>
+            </div>
+
+            <!-- Win Screen -->
+            <div class="win-screen hidden" id="winScreen">
+                <div class="win-emoji">🎉</div>
+                <h2>You Did It!</h2>
+                <p id="winMessage">Amazing! You found all the matching hearts!</p>
+                <p style="font-size: 2rem; color: var(--pink); font-weight: 700; margin: 2rem 0;">
+                    Final Score: <span id="finalScore">0</span> Points
+                </p>
+                <button class="btn" onclick="continueToSurprise()" style="font-size: 1.5rem; padding: 1.5rem 4rem;">
+                    Continue to Your Surprise 🎁 →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Every game with you is a winning game 💖</p>
+    </footer>
+
+    <script>
+        // Game State
+        let score = 0;
+        let matches = 0;
+        let moves = 0;
+        let flippedCards = [];
+        let matchedPairs = [];
+        let canFlip = true;
+
+        // Heart emojis for the game
+        const hearts = ['💖', '💕', '💗', '💝', '💓', '💞', '❤️', '🧡'];
+
+        function startGame() {
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            initializeGame();
+        }
+
+        function initializeGame() {
+            score = 0;
+            matches = 0;
+            moves = 0;
+            flippedCards = [];
+            matchedPairs = [];
+            canFlip = true;
+            
+            updateScoreBoard();
+            createGameBoard();
+        }
+
+        function createGameBoard() {
+            const gameBoard = document.getElementById('gameBoard');
+            gameBoard.innerHTML = '';
+
+            // Create pairs of hearts
+            const cardValues = [...hearts, ...hearts];
+            
+            // Shuffle the cards
+            cardValues.sort(() => Math.random() - 0.5);
+
+            // Create card elements
+            cardValues.forEach((value, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.value = value;
+                card.dataset.index = index;
+                card.innerHTML = `
+                    <div class="card-back">❓</div>
+                    <div class="card-front">${value}</div>
+                `;
+                card.addEventListener('click', () => flipCard(card));
+                gameBoard.appendChild(card);
+            });
+        }
+
+        function flipCard(card) {
+            if (!canFlip) return;
+            if (card.classList.contains('flipped')) return;
+            if (card.classList.contains('matched')) return;
+            if (flippedCards.length >= 2) return;
+
+            card.classList.add('flipped');
+            flippedCards.push(card);
+
+            if (flippedCards.length === 2) {
+                moves++;
+                updateScoreBoard();
+                checkMatch();
+            }
+        }
+
+        function checkMatch() {
+            canFlip = false;
+            const [card1, card2] = flippedCards;
+
+            if (card1.dataset.value === card2.dataset.value) {
+                // Match found!
+                setTimeout(() => {
+                    card1.classList.add('matched');
+                    card2.classList.add('matched');
+                    matchedPairs.push(card1.dataset.value);
+                    matches++;
+                    score++;
+                    updateScoreBoard();
+                    flippedCards = [];
+                    canFlip = true;
+
+                    // Check if player has scored 5 or more points
+                    if (score >= 5 && matches === 8) {
+                        setTimeout(() => showWinScreen(), 500);
+                    } else if (matches === 8 && score < 5) {
+                        // All cards matched but score less than 5 (shouldn't happen in normal play)
+                        setTimeout(() => showWinScreen(), 500);
+                    }
+                }, 500);
+            } else {
+                // No match
+                setTimeout(() => {
+                    card1.classList.remove('flipped');
+                    card2.classList.remove('flipped');
+                    flippedCards = [];
+                    canFlip = true;
+                }, 1000);
+            }
+        }
+
+        function updateScoreBoard() {
+            document.getElementById('score').textContent = score;
+            document.getElementById('matches').textContent = `${matches}/8`;
+            document.getElementById('moves').textContent = moves;
+        }
+
+        function showWinScreen() {
+            document.getElementById('gameScreen').classList.add('hidden');
+            document.getElementById('winScreen').classList.remove('hidden');
+            document.getElementById('finalScore').textContent = score;
+
+            const winMessage = document.getElementById('winMessage');
+            
+            // Always unlock surprise page when game is complete
+            PageManager.unlockPage('surprise');
+            
+            if (score === 8 && moves <= 12) {
+                winMessage.textContent = "Perfect! You're a matching master! 🏆";
+            } else if (score >= 5) {
+                winMessage.textContent = "Excellent work! You found all the pairs! 🌟";
+            } else {
+                winMessage.textContent = "Great job! You completed the game! 💝";
+            }
+        }
+
+        function resetGame() {
+            document.getElementById('gameScreen').classList.add('hidden');
+            document.getElementById('startScreen').classList.remove('hidden');
+        }
+
+        function continueToSurprise() {
+            window.location.href = 'surprise.html';
+        }
+    </script>
+</body>
+</html>

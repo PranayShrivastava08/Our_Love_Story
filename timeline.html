@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Timeline ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="page-manager.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink: #FF6B9D;
+            --purple: #C44569;
+            --yellow: #FFD93D;
+            --blue: #6BCF7F;
+            --light-pink: #FFE5EC;
+            --cream: #FFF5E4;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--light-pink) 50%, #E8F5E9 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 3.5rem;
+            color: var(--purple);
+            text-align: center;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0px var(--yellow);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--pink);
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--pink), var(--purple), var(--blue));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            margin-bottom: 4rem;
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.8s; }
+        .timeline-item:nth-child(5) { animation-delay: 1s; }
+        .timeline-item:nth-child(6) { animation-delay: 1.2s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-item:nth-child(odd) .content {
+            margin-right: 52%;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .content {
+            margin-left: 52%;
+            text-align: left;
+        }
+
+        .content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 3px solid transparent;
+        }
+
+        .content:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.3);
+            border-color: var(--pink);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: var(--pink);
+            border: 5px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--pink);
+            z-index: 10;
+            top: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 4px rgba(255, 107, 157, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(255, 107, 157, 0.1);
+            }
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            background: var(--purple);
+            box-shadow: 0 0 0 4px var(--purple);
+        }
+
+        .date {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5rem;
+            color: var(--pink);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .event-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8rem;
+            color: var(--purple);
+            margin-bottom: 1rem;
+        }
+
+        .event-description {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .emoji-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-dot {
+                left: 30px;
+            }
+
+            .timeline-item:nth-child(odd) .content,
+            .timeline-item:nth-child(even) .content {
+                margin-left: 80px;
+                margin-right: 0;
+                text-align: left;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--purple);
+            font-weight: 600;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Our Love Timeline 💕</h1>
+        <p class="subtitle">Every moment that brought us closer together</p>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="content">
+                    <!-- ADD YOUR PHOTO: Replace src with your image path -->
+                    <div style="
+    width: 100%;
+    max-width: 3000px;
+    height: 280px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+">
+    <img src="images\firstphoto.png"
+         alt="First Meeting"
+         style="
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+         ">
+</div>
+                    <div class="date">March 29, 2019</div>
+                    <h2 class="event-title">The First Meeting</h2>
+                    <p class="event-description">
+                        The day our paths crossed for the very first time. Who knew that a simple hello would lead to the most beautiful journey of our lives? The spark was instant, the connection undeniable.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="content">
+                    <div style="
+    width: 100%;
+    max-width: 300px;
+    height: 280px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+">
+    <img src="images/firstdate.png"
+         alt="First Meeting"
+         style="
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+         ">
+</div>
+
+                    <div class="date">June 28, 2019</div>
+                    <h2 class="event-title">Our First Date</h2>
+                    <p class="event-description">
+                        Coffee turned into hours of conversation, laughter, and discovering how much we had in common. Time flew by, and we both knew this was something special.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="content">
+                
+                    <div style="
+    width: 100%;
+    max-width: 300px;
+    height: 280px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+">
+    <img src="images/her hbd.png"
+         alt="First Meeting"
+         style="
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+         ">
+</div>
+
+                    <div class="date">August 05 </div>
+                    <h2 class="event-title">Her Birthday</h2>
+                    <p class="event-description">
+                       The day the world was blessed with you. Your birthday isn’t just special because it marks another year — it’s special because it celebrates the happiness, warmth, and light you bring into every life you touch. And I’m endlessly grateful that I get to be the one who stands beside you, loving you.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="content">
+                
+                    <div style="
+    width: 100%;
+    max-width: 300px;
+    height: 280px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+">
+    <img src="images/myhbd.png"
+         alt="First Meeting"
+         style="
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+         ">
+</div>
+
+                    <div class="date">January 12</div>
+                    <h2 class="event-title">My Birthday</h2>
+                    <p class="event-description">
+                        Birthdays feel different now. Not because of the candles or the wishes — but because I get to spend them with you. Your presence, your smile, the way you make everything feel special… that’s what truly makes my day meaningful.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="content">
+           
+                    <div style="
+    width: 100%;
+    max-width: 300px;
+    height: 280px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+">
+    <img src="images/memory4.png"
+         alt="First Meeting"
+         style="
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+         ">
+</div>
+
+                    <div class="date">July, 31</div>
+                    <h2 class="event-title">Our Anniversary</h2>
+                    <p class="event-description">
+                        This day will always hold something sacred for me. July 31 isn’t just a memory — it’s the day our story truly began. With every passing year, I don’t just celebrate the time we’ve spent together… I celebrate the love that keeps growing stronger, softer, and deeper with you.
+                    </p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="content">
+               
+                    <div style="
+    width: 100%;
+    max-width: 300px;
+    height: 280px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+">
+    <img src="images/memory8.png"
+         alt="First Meeting"
+         style="
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+         ">
+</div>
+
+                    <div class="date">February 14, 2026</div>
+                    <h2 class="event-title">Today & Forever</h2>
+                    <p class="event-description">
+                        This Valentine's Day marks another milestone in our journey. Here's to us, to our love, and to the countless beautiful moments still waiting to be created. I love you more every single day!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next Page Button -->
+        <div style="text-align: center; margin: 3rem 0;">
+            <button onclick="continueToPhotos()" style="display: inline-block; padding: 1.2rem 3rem; background: linear-gradient(135deg, var(--pink), var(--purple)); color: white; border: none; text-decoration: none; border-radius: 50px; font-family: 'Fredoka', sans-serif; font-size: 1.5rem; box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4); transition: all 0.3s ease; cursor: pointer;">
+                Continue to Photo Album 📸 →
+            </button>
+        </div>
+    </div>
+
+    <script>
+    function continueToPhotos() {
+        // Unlock the photos page and navigate to it
+        PageManager.unlockPage('photos');
+        window.location.href = 'photos.html';
+    }
+    </script>
+
+    <footer>
+        <p>Every moment with you is my favorite moment 💖</p>
+    </footer>
+</body>
+</html>

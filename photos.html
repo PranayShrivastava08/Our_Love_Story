@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Album ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="page-manager.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink: #FF6B9D;
+            --purple: #C44569;
+            --yellow: #FFD93D;
+            --blue: #6BCF7F;
+            --light-pink: #FFE5EC;
+            --cream: #FFF5E4;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #E8F5E9 0%, var(--cream) 50%, var(--light-pink) 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 3.5rem;
+            color: var(--purple);
+            text-align: center;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0px var(--yellow);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--pink);
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .photo-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            cursor: pointer;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .photo-card:nth-child(1) { animation-delay: 0.1s; }
+        .photo-card:nth-child(2) { animation-delay: 0.2s; }
+        .photo-card:nth-child(3) { animation-delay: 0.3s; }
+        .photo-card:nth-child(4) { animation-delay: 0.4s; }
+        .photo-card:nth-child(5) { animation-delay: 0.5s; }
+        .photo-card:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .photo-card:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 0 20px 40px rgba(255, 107, 157, 0.3);
+        }
+
+        .photo-placeholder {
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, var(--light-pink), var(--cream));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .photo-info {
+            padding: 1.5rem;
+        }
+
+        .photo-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5rem;
+            color: var(--purple);
+            margin-bottom: 0.5rem;
+        }
+
+        .photo-date {
+            color: var(--pink);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .photo-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .photo-memory {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 229, 236, 0.95));
+            border-radius: 25px;
+            padding: 2.5rem;
+            margin: 3rem auto;
+            max-width: 900px;
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.2);
+            text-align: center;
+            border: 3px solid var(--yellow);
+        }
+
+        .photo-memory h2 {
+            font-family: 'Fredoka', sans-serif;
+            color: var(--purple);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .photo-memory p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--purple);
+            font-weight: 600;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Our Photo Album 📸</h1>
+        <p class="subtitle">Captured moments of pure happiness</p>
+
+        <div class="photo-memory">
+            <h2>✨ Every Picture Tells Our Story ✨</h2>
+            <p>
+                These photos capture the smiles, the adventures, and the everyday moments that make our love story so special. 
+                Each image holds a piece of our hearts and reminds us of why we're perfect together!
+            </p>
+        </div>
+
+        <div class="gallery">
+            <div class="photo-card">
+                
+                <div style="
+    width: 100%;
+    max-width: 360px;
+    height: 250px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+">
+    <img src="images/firsttravel.png"
+         alt="First Meeting"
+         style="
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+         ">
+</div>
+
+                <div class="photo-info">
+                    
+                    <h3 class="photo-title">Our First Little Escape” 🌍💞</h3>
+                    <p class="photo-description">
+                        Our first trip together wasn’t just about the destination — it was about discovering how perfectly we fit, even in the chaos of travel. New places felt magical… but being with you made them unforgettable.
+                </div>
+            </div>
+
+            <div class="photo-card">
+                <div style="
+    width: 100%;
+    max-width: 360px;
+    height: 250px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+">
+    <img src="images/garba.png"
+         alt="First Meeting"
+         style="
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+         ">
+</div>
+
+                <div class="photo-info">
+                    
+                    <h3 class="photo-title">Garba Nights - Our Happy Place 💃✨</h3>
+                    <p class="photo-description">
+                        Among the lights, the colors, and the rhythm of the dandiya, we found our happiest versions of ourselves. Garba nights aren’t just festivals for us — they’re laughter, stolen glances, and memories that still make my heart dance.
+                    </p>
+                </div>
+            </div>
+
+            <div class="photo-card">
+                <div style="
+    width: 100%;
+    max-width: 360px;
+    height: 250px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+">
+    <img src="images/carnival.png"
+         alt="First Meeting"
+         style="
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+         ">
+</div>
+
+                <div class="photo-info">
+                    
+                    <h3 class="photo-title">Lights, Laughter & Us” 🎡🎶</h3>
+                    <p class="photo-description">
+                        The music was loud, the lights were bright, but the best part of every fest and carnival was you beside me. Somewhere between the rides and random selfies, we created memories that still make me smile.
+                    </p>
+                </div>
+            </div>
+
+            <div class="photo-card">
+                <div style="
+    width: 100%;
+    max-width: 360px;
+    height: 250px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+">
+    <img src="images/GK palace.png"
+         alt="First Meeting"
+         style="
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+         ">
+</div>
+
+                <div class="photo-info">
+                   
+                    <h3 class="photo-title">Where Time Always Slows Down</h3>
+                    <p class="photo-description">
+                        That one place (Gk Palace) where conversations feel deeper, laughter feels lighter, and time somehow moves too fast. It’s just a spot on the map to others… but to me, it’s where some of my favorite memories with you live.
+                    </p>
+                </div>
+            </div>
+
+            <div class="photo-card">
+                <div style="
+    width: 100%;
+    max-width: 400px;
+    height: 250px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+">
+    <img src="images/chai time.png"
+         alt="First Meeting"
+         style="
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+         ">
+</div>
+
+                <div class="photo-info">
+                    
+                    <h3 class="photo-title">Just You, Me & Two Cups of Chai</h3>
+                    <p class="photo-description">
+                        Some of our most beautiful moments weren’t grand or dramatic — just quiet chai breaks, shared smiles, and simple conversations. Somehow, those little pauses with you became some of my favorite memories.
+                    </p>
+                </div>
+            </div>
+
+            <div class="photo-card">
+                <div style="
+    width: 100%;
+    max-width: 360px;
+    height: 250px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+">
+    <img src="images/tekri.png"
+         alt="First Meeting"
+         style="
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+         ">
+</div>
+
+                <div class="photo-info">
+                  
+                    <h3 class="photo-title">Just You and I</h3>
+                    <p class="photo-description">
+                        When it’s just you and I, everything feels lighter, calmer, and more real. The world fades gently into the background, and all that matters is the quiet happiness we share. In those simple moments, I realize that I don’t need anything extraordinary — because being with you is already everything.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <!-- Next Page Button -->
+        <div style="text-align: center; margin: 3rem 0;">
+            <button onclick="continueToLoveCycle()" style="display: inline-block; padding: 1.2rem 3rem; background: linear-gradient(135deg, var(--pink), var(--purple)); color: white; border: none; text-decoration: none; border-radius: 50px; font-family: 'Fredoka', sans-serif; font-size: 1.5rem; box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4); transition: all 0.3s ease; cursor: pointer;">
+                Continue ✨ →
+            </button>
+        </div>
+    </div>
+
+    <script>
+    function continueToLoveCycle() {
+        // Unlock the love-cycle page and navigate to it
+        PageManager.unlockPage('love-cycle');
+        window.location.href = 'love-cycle.html';
+    }
+    </script>
+
+    <footer>
+        <p>A picture is worth a thousand words, but our love is beyond words 💖</p>
+    </footer>
+</body>
+</html>

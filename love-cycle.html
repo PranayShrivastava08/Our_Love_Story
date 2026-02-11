@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Thousand Little Reasons 🌙💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&family=Satisfy&display=swap" rel="stylesheet">
+    <script src="page-manager.js"></script>
+    <style>
+        :root {
+            --primary: #ff4c8b;
+            --secondary: #ff85a2;
+            --accent: #ffd166;
+            --purple: #b185ff;
+            --text: #2d3436;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            33% {
+                transform: translateY(-100px) translateX(50px);
+            }
+            66% {
+                transform: translateY(-50px) translateX(-50px);
+            }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3.5rem;
+            background: linear-gradient(45deg, #ffd166, #ff85a2, #b185ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            font-weight: 600;
+        }
+        
+        .intro-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 50px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .intro-section p {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 2;
+            text-align: center;
+        }
+        
+        .couple-illustration {
+            text-align: center;
+            margin: 50px 0;
+            animation: floatAnimation 4s ease-in-out infinite;
+        }
+        
+        @keyframes floatAnimation {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-25px); }
+        }
+        
+        .couple-svg {
+            max-width: 450px;
+            width: 100%;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4));
+        }
+        
+        .cycle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin: 60px 0;
+        }
+        
+        .reason-card {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 35px;
+            border-radius: 25px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(40px) scale(0.9);
+            animation: slideUpScale 0.8s ease forwards;
+        }
+        
+        .reason-card:nth-child(1) { animation-delay: 0.1s; }
+        .reason-card:nth-child(2) { animation-delay: 0.15s; }
+        .reason-card:nth-child(3) { animation-delay: 0.2s; }
+        .reason-card:nth-child(4) { animation-delay: 0.25s; }
+        .reason-card:nth-child(5) { animation-delay: 0.3s; }
+        .reason-card:nth-child(6) { animation-delay: 0.35s; }
+        .reason-card:nth-child(7) { animation-delay: 0.4s; }
+        .reason-card:nth-child(8) { animation-delay: 0.45s; }
+        .reason-card:nth-child(9) { animation-delay: 0.5s; }
+        .reason-card:nth-child(10) { animation-delay: 0.55s; }
+        .reason-card:nth-child(11) { animation-delay: 0.6s; }
+        .reason-card:nth-child(12) { animation-delay: 0.65s; }
+        .reason-card:nth-child(13) { animation-delay: 0.7s; }
+        .reason-card:nth-child(14) { animation-delay: 0.75s; }
+        .reason-card:nth-child(15) { animation-delay: 0.8s; }
+        .reason-card:nth-child(16) { animation-delay: 0.85s; }
+        .reason-card:nth-child(17) { animation-delay: 0.9s; }
+        
+        @keyframes slideUpScale {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .reason-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            transition: left 0.6s;
+        }
+        
+        .reason-card:hover::before {
+            left: 100%;
+        }
+        
+        .reason-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 25px 70px rgba(255, 76, 139, 0.4);
+        }
+        
+        .card-number {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 5px 20px rgba(255, 76, 139, 0.4);
+        }
+        
+        .card-emoji {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: block;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .card-title {
+            font-family: 'Satisfy', cursive;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .card-description {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.9;
+            font-weight: 500;
+        }
+        
+        .gradient-line {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            margin: 15px 0;
+            border-radius: 2px;
+        }
+        
+        .next-adventure {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 40px;
+            border-radius: 40px;
+            text-align: center;
+            margin: 80px 0 60px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+        }
+        
+        .next-adventure h2 {
+            font-family: 'Pacifico', cursive;
+            font-size: 3rem;
+            background: linear-gradient(45deg, var(--primary), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 25px;
+        }
+        
+        .next-adventure p {
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 22px 55px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 700;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #ff4c8b, #b185ff);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(255, 76, 139, 0.5);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cycle-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn {
+                padding: 18px 40px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>✨The Beauty of You ✨</h1>
+            <p class="subtitle">Just a Few of the Many Ways You Steal My Heart 🌷💫</p>
+        </div>
+        
+        <div class="intro-section">
+            <p>
+                Each of these points holds a truth about you — gentle fragments of your kindness, your warmth, and the way you exist so effortlessly in my heart. They tell a story, but never the whole one. These are only small reflections, quiet glimpses of the magic you carry so naturally. Because what you mean to me goes far beyond words — some feelings are meant to be felt, not defined, and you are one of them. Always💖
+            </p>
+        </div>
+        
+        <div class="cycle-grid">
+            <div class="reason-card">
+                <div class="card-number">1</div>
+                <span class="card-emoji">😊</span>
+                <h3 class="card-title">Your Radiant Smile</h3>
+                <div class="gradient-line"></div>
+                <p class="card-description">Your smile is like sunshine breaking through clouds - it lights up my entire world and makes every day brighter.</p>
+            </div>
+            
+            <div class="reason-card">
+                <div class="card-number">2</div>
+                <span class="card-emoji">💖</span>
+                <h3 class="card-title">Your Beautiful Heart</h3>
+                <div class="gradient-line"></div>
+                <p class="card-description">The way you care for others with such genuine kindness and compassion is absolutely incredible. Your heart is pure gold.</p>
+            </div>
+            
+            <div class="reason-card">
+                <div class="card-number">3</div>
+                <span class="card-emoji">🌟</span>
+                <h3 class="card-title">Your Brilliant Mind</h3>
+                <div class="gradient-line"></div>
+                <p class="card-description">You're so incredibly smart and thoughtful. I love our deep conversations and the unique way you see the world.</p>
+            </div>
+            
+            <div class="reason-card">
+                <div class="card-number">4</div>
+                <span class="card-emoji">😂</span>
+                <h3 class="card-title">Your Joyful Laughter</h3>
+                <div class="gradient-line"></div>
+                <p class="card-description">You make me laugh like nobody else can. Your sense of humor and playfulness bring endless joy to my life.</p>
+            </div>
+            
+            <div class="reason-card">
+                <div class="card-number">5</div>
+                <span class="card-emoji">🤗</span>
+                <h3 class="card-title">Your Unwavering Support</h3>
+                <div class="gradient-line"></div>
+                <p class="card-description">You're always there for me through thick and thin. Your support and encouragement mean absolutely everything to me.</p>
+            </div>
+            
+            <div class="reason-card">
+                <div class="card-number">6</div>
+                <span class="card-emoji">✨</span>
+                <h3 class="card-title">Your Unique Spirit</h3>
+                <div class="gradient-line"></div>
+                <p class="card-description">There's nobody like you in this entire world. You're truly one of a kind, and I'm so lucky to call you mine.</p>
+            </div>
+            
+            <div class="reason-card">
+                <div class="card-number">7</div>
+                <span class="card-emoji">💪</span>
+                <h3 class="card-title">Your Inner Strength</h3>
+                <div class="gradient-line"></div>
+                <p class="card-description">You're so strong and resilient. The way you handle life's challenges with grace inspires me every single day.</p>
+            </div>
+            
+            <div class="reason-card">
+                <div class="card-number">8</div>
+                <span class="card-emoji">🎨</span>
+                <h3 class="card-title">Your Creative Soul</h3>
+                <div class="gradient-line"></div>
+                <p class="card-description">Your creative spirit and imagination never cease to amaze me. You see beauty and possibility everywhere you look.</p>
+            </div>
+            
+            <div class="reason-card">
+                <div class="card-number">9</div>
+                <span class="card-emoji">👁️</span>
+                <h3 class="card-title">Your Soulful Eyes</h3>
+                <div class="gradient-line"></div>
+                <p class="card-description">I could get lost in your eyes forever. They're windows to your beautiful soul and they captivate me completely.</p>
+            </div>
+            
+            <div class="reason-card">
+                <div class="card-number">10</div>
+                <span class="card-emoji">🌹</span>
+                <h3 class="card-title">Your Stunning Beauty</h3>
+                <div class="gradient-line"></div>
+                <p class="card-description">You're absolutely gorgeous, inside and out. Your beauty - both inner and outer - takes my breath away every day.</p>
+            </div>
+            
+            <div class="reason-card">
+                <div class="card-number">11</div>
+                <span class="card-emoji">🎵</span>
+                <h3 class="card-title">Your Sweet Voice</h3>
+                <div class="gradient-line"></div>
+                <p class="card-description">I love hearing your voice. Whether talking, laughing, or singing - it's the most beautiful music to my ears.</p>
+            </div>
+            
+            <div class="reason-card">
+                <div class="card-number">12</div>
+                <span class="card-emoji">🤝</span>
+                <h3 class="card-title">Your Understanding Nature</h3>
+                <div class="gradient-line"></div>
+                <p class="card-description">You understand me like no one else ever has. You truly "get" me, and that connection is priceless.</p>
+            </div>
+            
+            <div class="reason-card">
+                <div class="card-number">13</div>
+                <span class="card-emoji">🌈</span>
+                <h3 class="card-title">Your Positive Energy</h3>
+                <div class="gradient-line"></div>
+                <p class="card-description">Your positive energy is absolutely contagious. You make everything better just by being your amazing self.</p>
+            </div>
+            
+            <div class="reason-card">
+                <div class="card-number">14</div>
+                <span class="card-emoji">💝</span>
+                <h3 class="card-title">Your Perfect Love</h3>
+                <div class="gradient-line"></div>
+                <p class="card-description">The way you love me is the greatest gift I've ever received. Your love makes me feel complete and whole.</p>
+            </div>
+            
+            <div class="reason-card">
+                <div class="card-number">15</div>
+                <span class="card-emoji">🎯</span>
+                <h3 class="card-title">Your Ambitious Drive</h3>
+                <div class="gradient-line"></div>
+                <p class="card-description">Your dreams and goals inspire me tremendously. I'm so proud of everything you work towards and achieve.</p>
+            </div>
+            
+            <div class="reason-card">
+                <div class="card-number">16</div>
+                <span class="card-emoji">🫂</span>
+                <h3 class="card-title">Your Warm Embrace</h3>
+                <div class="gradient-line"></div>
+                <p class="card-description">Your hugs feel like coming home. In your arms is where I feel safest, happiest, and most loved.</p>
+            </div>
+            
+            <div class="reason-card">
+                <div class="card-number">17</div>
+                <span class="card-emoji">🌍</span>
+                <h3 class="card-title">You're My Everything</h3>
+                <div class="gradient-line"></div>
+                <p class="card-description">You mean the entire world to me. You're not just part of my life - you ARE my life. I love you more than words can ever say.</p>
+            </div>
+        </div>
+        
+        <div class="next-adventure">
+            <h2>Ready for a Fun Challenge? 🎮</h2>
+            <p>
+                You’ve seen these little glimpses of what makes you so special to me — though they’ll never tell the whole story. Now, let’s have some fun. Finish the game, and your final surprise will be waiting 🌸🎀🌸
+            </p>
+            
+            <div class="button-group">
+                <button onclick="continueToGame()" class="btn btn-primary">🎮 Play The Game! 🌟</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function continueToGame() {
+            // Unlock the game page and navigate to it
+            PageManager.unlockPage('game');
+            window.location.href = 'game.html';
+        }
+    </script>
+    
+    <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.width = Math.random() * 6 + 2 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+    </script>
+</body>
+</html>
